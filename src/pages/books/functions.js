@@ -1,3 +1,5 @@
+let fragment = new DocumentFragment();
+
 let booksInCart = JSON.parse(localStorage.getItem('addedBooks'));
 if (!booksInCart) {
   booksInCart = [];
@@ -36,12 +38,46 @@ export const createNav = () => {
 
   modal.style.display = 'none';
 
-  container.appendChild(modal);
-  container.appendChild(header);
-  container.appendChild(booksContainer);
+  fragment.appendChild(modal);
+  fragment.appendChild(header);
+  fragment.appendChild(booksContainer);
 
   booksContainer.appendChild(catalog);
   booksContainer.appendChild(cart);
+
+  container.appendChild(fragment);
+};
+
+export const showMore = (books) => {
+  const showMoreBtns = document.getElementsByClassName('right-section__show-more');
+  Array.from(showMoreBtns).forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const index = e.target.getAttribute('data');
+      let moreInfo = document.getElementById('more-info');
+      moreInfo.innerHTML = `
+      <div class="info-wrapper"> 
+      <h4>${books[index].title}</h4>
+        <div class="info-wrapper-inner">
+          <div class ='info-left'>
+            <img src=${books[index].imageLink} />
+          </div>
+          <div class ='info-right'>
+            <i class="fa-solid fa-xmark" id="closeMocalCross"></i>
+            <p><strong>Price:</strong> ${books[index].price}</p>
+            <p><strong>Category:</strong> ${books[index].category}</p>
+            <p><strong>Written by:</strong> ${books[index].author}</p>
+            <p><strong>Description:</strong> <br /> <p>${books[index].description}</p></p> 
+          </div>
+        </div>
+        <div class="close-btn-container">
+          <button type="button" class="add-btn close-modal" id="close-modal">Close</button>
+        <div>
+       
+      </div>`;
+      toggleShowMore();
+      closeOnClick();
+    });
+  });
 };
 
 const toggleShowMore = () => {
@@ -166,38 +202,6 @@ export const displayRaws = (books, parentEl) => {
   }
 
   deleteBookFromCart();
-};
-
-export const showMore = (books) => {
-  const showMoreBtns = document.getElementsByClassName('right-section__show-more');
-  Array.from(showMoreBtns).forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const index = e.target.getAttribute('data');
-      let moreInfo = document.getElementById('more-info');
-      moreInfo.innerHTML = `
-      <div class="info-wrapper"> 
-      <h4>${books[index].title}</h4>
-        <div class="info-wrapper-inner">
-          <div class ='info-left'>
-            <img src=${books[index].imageLink} />
-          </div>
-          <div class ='info-right'>
-            <i class="fa-solid fa-xmark" id="closeMocalCross"></i>
-            <p><strong>Price:</strong> ${books[index].price}</p>
-            <p><strong>Category:</strong> ${books[index].category}</p>
-            <p><strong>Written by:</strong> ${books[index].author}</p>
-            <p><strong>Description:</strong> <br /> <p>${books[index].description}</p></p> 
-          </div>
-        </div>
-        <div class="close-btn-container">
-          <button type="button" class="add-btn close-modal" id="close-modal">Close</button>
-        <div>
-       
-      </div>`;
-      toggleShowMore();
-      closeOnClick();
-    });
-  });
 };
 
 export const deleteBookFromCart = () => {
