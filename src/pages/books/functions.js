@@ -5,29 +5,70 @@ if (!booksInCart) {
   booksInCart = [];
 }
 
-export const createNav = () => {
+const toggleShowMore = () => {
+  var x = document.getElementById('more-info');
+  if (x.style.display === 'none') {
+    x.style.display = 'flex';
+  } else {
+    x.style.display = 'none';
+    location.reload();
+  }
+};
+
+const getTotal = (books) => {
+  return books.reduce((total, book) => {
+    total += book.price;
+    localStorage.setItem('total', total);
+    return total;
+  }, 0);
+};
+
+export const createPage = () => {
   let container = document.getElementById('container');
   let booksContainer = document.createElement('main');
   let modal = document.createElement('div');
   let header = document.createElement('header');
   let catalog = document.createElement('div');
+  let cartWrapper = document.createElement('div');
   let cart = document.createElement('div');
+  let cartFooter = document.createElement('div');
+  let cartTotalContainer = document.createElement('div');
+  let cartTotal = document.createElement('p');
+  let orderBtn = document.createElement('a');
 
   booksContainer.classList.add('booksContainer');
   modal.classList.add('modal');
-  catalog.classList.add('catalog');
-
   cart.classList.add('cart');
+  cartTotal.innerHTML = 'Total: 0';
+  orderBtn.innerHTML = 'Order';
 
+  catalog.classList.add('catalog');
+  cartFooter.classList.add('cart-footer');
+  cartTotalContainer.classList.add('cart-total-container');
+  cartTotal.classList.add('cart-total');
+  cartWrapper.classList.add('cart-wrapper');
+  orderBtn.classList.add('add-btn');
+
+  cartTotalContainer.appendChild(cartTotal);
+  cartTotalContainer.appendChild(orderBtn);
+  cartFooter.appendChild(cartTotalContainer);
+
+  cartWrapper.setAttribute('id', 'cart-wrapper');
+
+  cart.appendChild(cartWrapper);
+  cart.appendChild(cartFooter);
+
+  orderBtn.setAttribute('href', '../order/order.html');
   catalog.setAttribute('id', 'catalog');
   modal.setAttribute('id', 'more-info');
+  cartTotal.setAttribute('id', 'cart-total');
   cart.setAttribute('id', 'cart');
+  orderBtn.setAttribute('id', 'order-btn');
 
+  // navbar
   const nav = document.createElement('nav');
   const logo = document.createElement('a');
   const bag = document.createElement('i');
-  logo.setAttribute('href', './index.html');
-  logo.innerHTML = 'Bookstore';
 
   logo.classList.add('logo');
   bag.classList.add('fa-solid');
@@ -38,6 +79,8 @@ export const createNav = () => {
 
   modal.style.display = 'none';
 
+  logo.setAttribute('href', './index.html');
+  logo.innerHTML = 'Bookstore';
   fragment.appendChild(modal);
   fragment.appendChild(header);
   fragment.appendChild(booksContainer);
@@ -54,41 +97,65 @@ export const showMore = (books) => {
     btn.addEventListener('click', (e) => {
       const index = e.target.getAttribute('data');
       let moreInfo = document.getElementById('more-info');
-      moreInfo.innerHTML = `
-      <div class="info-wrapper"> 
-      <h4>${books[index].title}</h4>
-        <div class="info-wrapper-inner">
-          <div class ='info-left'>
-            <img src=${books[index].imageLink} />
-          </div>
-          <div class ='info-right'>
-            <i class="fa-solid fa-xmark" id="closeMocalCross"></i>
-            <p><strong>Price:</strong> ${books[index].price}</p>
-            <p><strong>Category:</strong> ${books[index].category}</p>
-            <p><strong>Written by:</strong> ${books[index].author}</p>
-            <p><strong>Description:</strong> <br /> <p>${books[index].description}</p></p> 
-          </div>
-        </div>
-        <div class="close-btn-container">
-          <button type="button" class="add-btn close-modal" id="close-modal">Close</button>
-        <div>
-       
-      </div>`;
+
+      let infoWrapper = document.createElement('div');
+      let infoBookTitle = document.createElement('h4');
+      let infoWrapperInner = document.createElement('div');
+      let infoLeft = document.createElement('div');
+      let infoImg = document.createElement('img');
+      let infoRight = document.createElement('div');
+      let inforCloseCross = document.createElement('i');
+      let infoPrice = document.createElement('p');
+      let infoCategory = document.createElement('p');
+      let infoAuthor = document.createElement('p');
+      let infoDescription = document.createElement('p');
+      let closeBtnContainer = document.createElement('div');
+      let closeBtnButton = document.createElement('button');
+      let br = document.createElement('br');
+
+      infoWrapper.classList.add('info-wrapper');
+      infoWrapperInner.classList.add('info-wrapper-inner');
+      infoLeft.classList.add('info-left');
+      infoRight.classList.add('info-right');
+      closeBtnContainer.classList.add('close-btn-container');
+      closeBtnButton.classList.add('add-btn');
+      closeBtnButton.classList.add('close-modal');
+      inforCloseCross.classList.add('fa-solid');
+      inforCloseCross.classList.add('fa-xmark');
+
+      infoImg.setAttribute('src', books[index].imageLink);
+      inforCloseCross.setAttribute('id', 'closeMocalCross');
+      closeBtnButton.setAttribute('id', 'close-modal');
+
+      infoPrice.innerHTML = `Price: ${books[index].price}`;
+      infoCategory.innerHTML = `Category: ${books[index].category}`;
+      infoAuthor.innerHTML = `Written by: ${books[index].author}`;
+      infoDescription.innerHTML = `Description: ${books[index].description}`;
+      closeBtnButton.innerHTML = 'Close';
+      infoBookTitle.innerHTML = books[index].title;
+
+      infoLeft.appendChild(infoImg);
+
+      infoRight.appendChild(inforCloseCross);
+      infoRight.appendChild(infoPrice);
+      infoRight.appendChild(infoCategory);
+      infoRight.appendChild(infoAuthor);
+      infoRight.appendChild(infoDescription);
+
+      closeBtnContainer.appendChild(closeBtnButton);
+
+      infoWrapperInner.appendChild(infoLeft);
+      infoWrapperInner.appendChild(infoRight);
+
+      infoWrapper.appendChild(infoBookTitle);
+      infoWrapper.appendChild(infoWrapperInner);
+      infoWrapper.appendChild(closeBtnContainer);
+
+      moreInfo.appendChild(infoWrapper);
       toggleShowMore();
       closeOnClick();
     });
   });
-};
-
-const toggleShowMore = () => {
-  var x = document.getElementById('more-info');
-  if (x.style.display === 'none') {
-    x.style.display = 'flex';
-    console.log('open');
-  } else {
-    x.style.display = 'none';
-    console.log('closed');
-  }
 };
 
 export const fetchBooks = async () => {
@@ -112,7 +179,8 @@ const closeOnClick = () => {
 export const displayRaws = (books, parentEl) => {
   parentEl.innerHTML = '';
   let page = document.createElement('h1');
-  page.innerHTML = parentEl.classList.contains('cart') ? 'CART' : 'CATALOG';
+  let cartTotal = document.getElementById('cart-total');
+  page.innerHTML = parentEl.classList.contains('cart-wrapper') ? 'CART' : 'CATALOG';
   parentEl.appendChild(page);
 
   if (books) {
@@ -154,8 +222,9 @@ export const displayRaws = (books, parentEl) => {
       xmark.classList.add('fa-xmark');
 
       xmark.setAttribute('data', Object.keys(book)[7]);
-
-      price.innerHTML = `Price: $${book.price}`;
+      if (!parentEl.classList.contains('cart-wrapper')) {
+        price.innerHTML = `Price: $${book.price}`;
+      }
       author.innerHTML = book.author;
       title.innerHTML = book.title;
       category.innerHTML = book.category;
@@ -164,8 +233,9 @@ export const displayRaws = (books, parentEl) => {
       bookInfo.appendChild(title);
       bookInfo.appendChild(author);
       bookInfo.appendChild(price);
-      if (parentEl.classList.contains('cart')) {
+      if (parentEl.classList.contains('cart-wrapper')) {
         bookInfo.appendChild(xmark);
+        cartTotal.innerHTML = `Total: $` + getTotal(books);
       }
       leftSection.appendChild(bookInfo);
       infoSection.appendChild(leftSection);
@@ -192,7 +262,7 @@ export const displayRaws = (books, parentEl) => {
       ul.appendChild(liAdd);
       actions.appendChild(ul);
 
-      if (!parentEl.classList.contains('cart')) {
+      if (!parentEl.classList.contains('cart-wrapper')) {
         infoSection.appendChild(actions);
       }
       container.appendChild(mainSection);
@@ -215,29 +285,26 @@ export const deleteBookFromCart = () => {
       });
       localStorage.setItem('addedBooks', JSON.stringify(booksInCart));
       location.reload();
-      displayRaws(booksInCart, cart);
+      displayRaws(booksInCart, cartWrapper);
     });
   });
 };
 
 export const addBookToCart = (books) => {
-  let cart = document.getElementById('cart');
+  let cartWrapper = document.getElementById('cart-wrapper');
   const addBtns = document.getElementsByClassName('add-btn');
   Array.from(addBtns).forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const index = e.target.getAttribute('data');
       let length = JSON.parse(localStorage.getItem('addedBooks'));
       length = length ? length.length : (length = 0);
-
-      console.log(booksInCart);
       const uniqId = length + books[index].author.substring(0, 4);
 
       booksInCart = [...booksInCart, { ...books[index], [uniqId]: length + books[index].author }];
-      console.log(booksInCart);
       localStorage.setItem('addedBooks', JSON.stringify(booksInCart));
       const addedBooksLS = JSON.parse(localStorage.getItem('addedBooks'));
 
-      displayRaws(addedBooksLS, cart);
+      displayRaws(addedBooksLS, cartWrapper);
       deleteBookFromCart();
     });
   });

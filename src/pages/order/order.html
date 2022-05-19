@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../books/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container form-container">
+      <header>
+        <nav><a class="logo" href="../books/index.html">Bookstore</a><i class="fa-solid fa-cart-shopping"></i></nav>
+      </header>
+      <div class="formContainer" id="formContainer">
+        <h1 class="add-new">Order Form</h1>
+        <form>
+          <div class="form-group full-name">
+            <div class="input-container">
+              <input
+                title="Not less than 4 symbols, strings only"
+                class="bookInput name"
+                type="text"
+                placeholder="First Name"
+                id="name"
+                minlength="4"
+                onblur="validateInput(this)"
+                onkeydown="return /[a-z]/i.test(event.key)"
+                required
+              />
+              <p class="invalid-message">The field is invalid</p>
+            </div>
+            <div class="input-container sirname">
+              <input
+                class="bookInput f"
+                type="text"
+                placeholder="Last Name"
+                id="sirname"
+                onblur="validateInput(this)"
+                minlength="5"
+                onkeydown="return /[a-z]/i.test(event.key)"
+                required
+              />
+              <p class="invalid-message">The field is invalid</p>
+            </div>
+          </div>
+
+          <div class="form-group delivery-day">
+            <div class="input-container date">
+              <input
+                id="datePicker"
+                class="bookInput"
+                onblur="validateInput(this)"
+                type="date"
+                placeholder="Delivery days"
+                required
+              />
+              <p class="invalid-message">The field is invalid</p>
+            </div>
+          </div>
+
+          <div class="form-group adress">
+            <div class="input-container">
+              <input
+                class="bookInput"
+                type="text"
+                id="street"
+                placeholder="Street"
+                minlength="5"
+                required
+                onblur="validateInput(this)"
+              />
+              <p class="invalid-message">The field is invalid</p>
+            </div>
+          </div>
+
+          <div class="form-group adress">
+            <div class="input-container">
+              <input
+                class="bookInput"
+                type="number"
+                id="house"
+                placeholder="House number"
+                min="1"
+                required
+                onblur="validateInput(this)"
+              />
+              <p class="invalid-message">The field is invalid</p>
+            </div>
+          </div>
+
+          <div class="form-group adress">
+            <div class="input-container">
+              <input
+                class="bookInput"
+                id="flat"
+                placeholder="Flat number"
+                min="1"
+                required
+                onkeydown="return /^[0-9.-]*$/.test(event.key)"
+                onblur="validateInput(this)"
+              />
+              <p class="invalid-message">The field is invalid</p>
+            </div>
+          </div>
+
+          <div class="multiselect form-group row gift">
+            <div class="selectBox" id="selectBox">
+              <select>
+                <option>Select a gift:</option>
+              </select>
+              <div class="overSelect"></div>
+            </div>
+            <div id="checkboxes">
+              <label for="pack">
+                <input
+                  type="checkbox"
+                  class="gift"
+                  id="pack"
+                  value="Pack as a gift"
+                  onclick="validateInput(this)"
+                />Pack as a gift</label
+              >
+              <label for="postcard">
+                <input
+                  class="gift"
+                  type="checkbox"
+                  id="postcard"
+                  value="Add postcard"
+                  onclick="validateInput(this)"
+                />Add postcard</label
+              >
+              <label for="discount">
+                <input
+                  class="gift"
+                  type="checkbox"
+                  id="discount"
+                  value="Provide 2% discount to the next time"
+                  onclick="validateInput(this)"
+                />Provide 2% discount to the next time</label
+              >
+              <label for="branded">
+                <input
+                  class="gift"
+                  type="checkbox"
+                  id="branded"
+                  value="Branded pen or pencil"
+                  onclick="validateInput(this)"
+                />Branded pen or pencil</label
+              >
+            </div>
+          </div>
+
+          <div class="form-group payment">
+            <label class="col-sm-2">Payment Method:</label>
+            <div>
+              <input name="payment" value="1" onblur="validateInput(this)" type="radio" id="cash" name="contact" />
+              <label for="contactChoice1">Cash</label>
+              <input
+                name="payment"
+                value="2"
+                onblur="validateInput(this)"
+                type="radio"
+                id="card"
+                name="contact"
+                checked
+              />
+              <label for="contactChoice2">Card</label>
+            </div>
+          </div>
+
+          <input class="add-btn order-btn" disabled id="submit" value="Complete" type="submit" />
+        </form>
+      </div>
+    </div>
+  </body>
+  <script src="https://kit.fontawesome.com/36c60608a5.js" crossorigin="anonymous"></script>
+  <script src="./order.js"></script>
+</html>

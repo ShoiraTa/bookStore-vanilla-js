@@ -5,7 +5,7 @@
 }
 
 body {
-  padding: 2rem 1rem;
+  padding: 1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgba(245, 246, 250, 0.726);
@@ -59,6 +59,10 @@ nav {
   box-shadow: 2px 5px 20px 1px rgba(0, 5, 5, 0.05);
 }
 
+.form-container{
+  padding: 2rem;
+}
+
 header .link, h1 {
   text-align: center;
   color: #555;
@@ -89,6 +93,10 @@ header .link:last-child {
 /* Book css */
 .catalog, .cart{
   width: 49%;
+}
+
+.cart{ 
+  position: relative;
 }
 
 .bookRow {
@@ -250,6 +258,10 @@ button {
   cursor: pointer;
   border: 0;
   margin-left: 8px;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
 }
 
 .add-btn:hover{
@@ -272,22 +284,27 @@ button {
   padding: 2rem;
 }
 
-form {
+.form-group {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 100px;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .add-new {
   font-size: 1.25rem;
   font-weight: bold;
   color: #888;
+ font-size: 1.25rem;
+  font-weight: bold;
+  color: #888;
   padding-top: 2rem;
-  border-top: 1px solid #e8e8e8;
-  margin: 3rem 0 1rem 0;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 1rem 0
+
 }
 
-.bookInput {
+.bookInput, .multiselect {
   height: 15px;
   flex-grow: 5;
   padding: 10px 10px;
@@ -295,6 +312,9 @@ form {
   border: solid 1px #e8e8e8;
   background-color: #fff;
   outline: none;
+  color: #888;
+  font-family: Montserrat, sans-serif;
+  width: 100%;
 }
 
 .bookSelect,
@@ -402,4 +422,130 @@ grid-template-columns: 2fr 3fr;
 .info-wrapper h4{
   border-left: 2px solid #0073ca;
   padding-left: 1rem;
+}
+
+.cart-footer{
+  border: 1px solid #e8e8e8;
+    background-color: #fff;
+    padding: 1rem 2rem;
+    margin-bottom: 1rem;
+}
+
+/*Cart */
+.cart-total-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* Form */
+
+form, .summary-container {
+  width: 50%;
+  margin: auto;
+}
+
+.col-sm-4{
+  padding-right: 1rem;
+}
+
+.gift, .payment{
+  margin-bottom: 1rem;
+}
+
+.payment label{
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.multiselect {
+  display: block;
+  height: auto;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  border: none;
+  color: #888;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  color: #888;
+}
+
+#checkboxes {
+  display: none;
+  margin-top: 10px;
+}
+
+#checkboxes input {
+  margin-right: 5px;
+}
+#checkboxes label {
+  display: block;
+  margin: 5px 0;
+  color: #888;
+}
+
+.order-btn{
+  margin: 0;
+}
+
+.order-btn:disabled{
+  background-color: #555;
+}
+.invalid-message{
+  color: red;
+  margin: 0;
+  font-size: 12px;
+  position: absolute;
+  display: none;
+}
+.invalid{
+  border: 1px solid red;
+
+}
+input{
+  width: 100%;
+}
+
+.payment input {
+  width: auto;
+}
+
+.full-name .name{
+  width: 90%;
+}
+.input-container{
+  position: relative;
+  width: 100%;
+}
+
+#checkboxes input{
+  width: auto;
+}
+
+
+.summary-container strong {
+  text-transform: uppercase;
+}
+
+.summary-container p {
+  width: 55%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 5px auto;
+
 }
