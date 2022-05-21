@@ -106,15 +106,21 @@ header .link:last-child {
   padding: 2rem 2rem 2rem 1.6rem;
   margin-bottom: 1rem;
   display: grid;
-  position: relative;
-  grid-template-columns: 200px repeat(auto-fill, 300px)
+  /* position: relative; */
+  transition: 0.3s;
+  grid-template-columns: 200px repeat(auto-fill, 300px);
+  border-radius: 5px;
 }
 
+.bookRow:hover{
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  cursor: pointer;
+}
 .fa-xmark{
   position: absolute;
-  right: 30px;
+  right: -90px;
   color: #0073ca;
-  top: 30px;
+  top: 0;
   cursor: pointer;
 }
 
@@ -128,24 +134,7 @@ header .link:last-child {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.right-section__show-more{
-  width: 120px;
-  border: 1px solid #0290ff;
-  border-radius: 3px;
-  height: 2.063rem;
-  color: #0290ff;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: 0.2s;
-}
-
-
-.right-section__show-more:hover{
-  color: #fff;
-  border: 0;
-  background-color: #0290ff
+  position: relative;
 }
 
 .category,
@@ -249,22 +238,23 @@ button {
 .img-div img{
   width: 170px
 }
-.add-btn {
+.add-btn, .right-section__show-more {
   background-color: var(--main-color);
   width: 120px;
   border-radius: 3px;
   height: 2.063rem;
   color: #fff;
-  cursor: pointer;
   border: 0;
   margin-left: 8px;
   display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
-.add-btn:hover{
+.add-btn:hover, .right-section__show-more:hover{
   color: #0290ff;
   border: 1px solid #0290ff;;
   background-color: #fff
@@ -505,6 +495,11 @@ form, .summary-container {
 
 .order-btn:disabled{
   background-color: #555;
+}
+
+.order-btn:disabled:hover{
+  color: #fff;
+  border: none;
 }
 .invalid-message{
   color: red;

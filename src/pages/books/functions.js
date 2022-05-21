@@ -12,6 +12,7 @@ const toggleShowMore = () => {
   } else {
     x.style.display = 'none';
     location.reload();
+    window.history.back();
   }
 };
 
@@ -221,10 +222,13 @@ export const displayRaws = (books, parentEl) => {
       xmark.classList.add('fa-solid');
       xmark.classList.add('fa-xmark');
 
+      container.setAttribute('data', book.id);
+      container.setAttribute('draggable', 'true');
+
       xmark.setAttribute('data', Object.keys(book)[7]);
-      if (!parentEl.classList.contains('cart-wrapper')) {
-        price.innerHTML = `Price: $${book.price}`;
-      }
+
+      price.innerHTML = `Price: $${book.price}`;
+
       author.innerHTML = book.author;
       title.innerHTML = book.title;
       category.innerHTML = book.category;
@@ -280,11 +284,13 @@ export const deleteBookFromCart = () => {
   Array.from(deleteBtns).forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const id = e.target.getAttribute('data');
+      console.log(id);
       const booksInCart = addedBooks.filter((book) => {
         return Object.keys(book)[7] !== id;
       });
       localStorage.setItem('addedBooks', JSON.stringify(booksInCart));
       location.reload();
+      window.history.back();
       displayRaws(booksInCart, cartWrapper);
     });
   });
@@ -311,3 +317,36 @@ export const addBookToCart = (books) => {
 };
 
 // Drag and drop
+export const drag = () => {
+  let bookRows = document.getElementsByClassName('bookRow');
+  Array.from(bookRows).forEach((row) => {
+    row.addEventListener('dragstart', dragstart);
+    row.addEventListener('dragend', dragend);
+  });
+};
+
+const dragstart = () => {
+  console.log('srated');
+};
+
+const dragend = (e) => {
+  let x = e.pageX;
+  let y = e.pageY;
+
+  const index = e.target.getAttribute('data');
+  const books = JSON.parse(localStorage.getItem('allBooks'));
+
+  if (parseInt(x, 10) > 886 && parseInt(y, 10) > 232) {
+    let length = JSON.parse(localStorage.getItem('addedBooks'));
+    const uniqId = length + books[index].author.substring(0, 4);
+    booksInCart = [...booksInCart, { ...books[index], [uniqId]: length + books[index].author }];
+    localStorage.setItem('addedBooks', JSON.stringify(booksInCart));
+
+    const addedBooksLS = JSON.parse(localStorage.getItem('addedBooks'));
+    let cartWrapper = document.getElementById('cart-wrapper');
+    displayRaws(addedBooksLS, cartWrapper);
+    deleteBookFromCart();
+  }
+
+  console.log('ended');
+};

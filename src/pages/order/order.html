@@ -68,6 +68,7 @@
                 placeholder="Street"
                 minlength="5"
                 required
+                onkeydown="return /[a-z0-9]/i.test(event.key)"
                 onblur="validateInput(this)"
               />
               <p class="invalid-message">The field is invalid</p>
@@ -94,13 +95,17 @@
               <input
                 class="bookInput"
                 id="flat"
+                type="text"
                 placeholder="Flat number"
+                onkeydown="return /[0-9_-]/.test(event.key)"
                 min="1"
                 required
-                onkeydown="return /^[0-9.-]*$/.test(event.key)"
+                pattern="(^[1-9]+)(\d*)(-?)([0-9]*$)"
                 onblur="validateInput(this)"
               />
-              <p class="invalid-message">The field is invalid</p>
+              <p class="invalid-message">
+                The field is invalid, use numbers only, only the dash symbol between numbers is allowed
+              </p>
             </div>
           </div>
 
