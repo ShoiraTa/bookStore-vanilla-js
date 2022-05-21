@@ -12,7 +12,6 @@ const toggleShowMore = () => {
   } else {
     x.style.display = 'none';
     location.reload();
-    window.history.back();
   }
 };
 
@@ -290,7 +289,6 @@ export const deleteBookFromCart = () => {
       });
       localStorage.setItem('addedBooks', JSON.stringify(booksInCart));
       location.reload();
-      window.history.back();
       displayRaws(booksInCart, cartWrapper);
     });
   });
