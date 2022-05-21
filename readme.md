@@ -9,7 +9,7 @@
 
 ## Live demo
 
-[Follow the link](https://shoirata.github.io/bookStore-vanilla-js/src/pages/books/index.html)
+[Follow the link](https://frabjous-cucurucho-fef145.netlify.app/)
 
 ## Getting Started
 

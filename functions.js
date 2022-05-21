@@ -35,12 +35,14 @@ export const createPage = () => {
   let cartTotalContainer = document.createElement('div');
   let cartTotal = document.createElement('p');
   let orderBtn = document.createElement('a');
+  let carth1 = document.createElement('h1');
 
   booksContainer.classList.add('booksContainer');
   modal.classList.add('modal');
   cart.classList.add('cart');
   cartTotal.innerHTML = 'Total: 0';
   orderBtn.innerHTML = 'Order';
+  carth1.innerHTML = 'CART';
 
   catalog.classList.add('catalog');
   cartFooter.classList.add('cart-footer');
@@ -54,11 +56,11 @@ export const createPage = () => {
   cartFooter.appendChild(cartTotalContainer);
 
   cartWrapper.setAttribute('id', 'cart-wrapper');
-
+  cartWrapper.appendChild(carth1);
   cart.appendChild(cartWrapper);
   cart.appendChild(cartFooter);
 
-  orderBtn.setAttribute('href', '../order/order.html');
+  orderBtn.setAttribute('href', './order/order.html');
   catalog.setAttribute('id', 'catalog');
   modal.setAttribute('id', 'more-info');
   cartTotal.setAttribute('id', 'cart-total');
@@ -111,7 +113,6 @@ export const showMore = (books) => {
       let infoDescription = document.createElement('p');
       let closeBtnContainer = document.createElement('div');
       let closeBtnButton = document.createElement('button');
-      let br = document.createElement('br');
 
       infoWrapper.classList.add('info-wrapper');
       infoWrapperInner.classList.add('info-wrapper-inner');

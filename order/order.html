@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../books/style.css" />
+    <link rel="stylesheet" href="../style.css" />
     <title>Document</title>
   </head>
   <body>
     <div class="container form-container">
       <header>
-        <nav><a class="logo" href="../books/index.html">Bookstore</a><i class="fa-solid fa-cart-shopping"></i></nav>
+        <nav><a class="logo" href="../index.html">Bookstore</a><i class="fa-solid fa-cart-shopping"></i></nav>
       </header>
       <div class="formContainer" id="formContainer">
         <h1 class="add-new">Order Form</h1>
@@ -86,7 +86,7 @@
                 required
                 onblur="validateInput(this)"
               />
-              <p class="invalid-message">The field is invalid</p>
+              <p class="invalid-message">The field is invalid, numbers only</p>
             </div>
           </div>
 
@@ -97,7 +97,6 @@
                 id="flat"
                 type="text"
                 placeholder="Flat number"
-                onkeydown="return /[0-9_-]/.test(event.key)"
                 min="1"
                 required
                 pattern="(^[1-9]+)(\d*)(-?)([0-9]*$)"
