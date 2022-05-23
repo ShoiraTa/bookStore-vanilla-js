@@ -37,6 +37,8 @@ export const createPage = () => {
   let orderBtn = document.createElement('a');
   let carth1 = document.createElement('h1');
 
+  // Info
+
   booksContainer.classList.add('booksContainer');
   modal.classList.add('modal');
   cart.classList.add('cart');
@@ -67,7 +69,6 @@ export const createPage = () => {
   cart.setAttribute('id', 'cart');
   orderBtn.setAttribute('id', 'order-btn');
 
-  // navbar
   const nav = document.createElement('nav');
   const logo = document.createElement('a');
   const bag = document.createElement('i');
@@ -128,7 +129,7 @@ export const showMore = (books) => {
       inforCloseCross.setAttribute('id', 'closeMocalCross');
       closeBtnButton.setAttribute('id', 'close-modal');
 
-      infoPrice.innerHTML = `Price: ${books[index].price}`;
+      infoPrice.innerHTML = `Price: $${books[index].price}`;
       infoCategory.innerHTML = `Category: ${books[index].category}`;
       infoAuthor.innerHTML = `Written by: ${books[index].author}`;
       infoDescription.innerHTML = `Description: ${books[index].description}`;
